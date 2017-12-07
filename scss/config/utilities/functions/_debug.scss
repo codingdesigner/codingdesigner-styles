@@ -1,0 +1,32 @@
+////
+/// @group Utilities
+////
+
+/// Output debugging information to the command line
+/// @param $arg
+@function inspect($arg) {
+  @debug "INSPECT #{$arg}";
+  @debug "type-of: #{type-of($arg)}";
+  // if type list
+  @if type-of($arg) == list {
+    @debug "list_separator: #{list_separator($arg)}";
+    $count: 1;
+    @each $item in $arg {
+      @debug "nth #{$count}: #{$item}";
+      $count: $count + 1;
+    }
+  }
+
+  // if type string
+  @if type-of($arg) == string {
+    @debug "str-length: #{str-length($arg)}";
+  }
+
+  // if type number
+  @if type-of($arg) == number {
+    @debug "unit: #{unit($arg)}";
+    @debug "unitless: #{unitless($arg)}";
+  }
+
+  @return "/INSPECT #{$arg}";
+}

@@ -1,0 +1,135 @@
+////
+/// @group Layout
+////
+
+/// Grid container -- flex version
+/// @param {number} $max-width [null]
+@mixin flex--grid-container($max-width: null) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  @if ($max-width) {
+    &.fixed-grid {
+      width: $max-width;
+    }
+  }
+
+  &.orderable-grid {
+    flex-wrap: nowrap;
+  }
+}
+
+/// Grid items in a flex context need to add a bottom margin
+/// @param {string} $class - class name for grid items in this grid
+/// @param {number} $gap - gutter value for bottom margins
+@mixin flex--grid-item-common($class, $gap) {
+  #{$class} {
+    margin-bottom: $gap;
+
+    @if $use-css-grid {
+      @include supports-cssgrid() {
+        margin-bottom: auto;
+      }
+    }
+  }
+}
+
+/// Create classes calculating the widths of grid items in a flex context
+/// @param {number} $column-count - total number of columns in a row
+/// @param {number} $gap - gutter value between margins
+@mixin flex--grid-calc-columns($column-count, $gap) {
+  // add properties to direct children. (flex layouts)
+  > * {
+    $flex-gap: $gap - (1 * ($gap / $column-count));
+    flex-basis: if($flex-gap > 0, calc(#{percentage(1 / $column-count)} - #{$flex-gap}), percentage(1 / $column-count));
+  }
+}
+
+/// Create classes calculating the widths and positions of grid items in a flex context,
+/// when they are explicitly ordered
+/// @param {number} $column-count - total number of columns in a row
+/// @param {number} $gap - gutter value between margins
+@mixin flex--grid-orderable-grid-positions($column-count, $gap) {
+  // calculate width and position for grid items (flex)
+  @for $span from 1 through $column-count {
+    @for $position from 1 through $column-count {
+      @if (($position - 1) + $span <= $column-count) {
+        @at-root .orderable-grid .col-#{$span}of#{$column-count}at#{$position} {
+          flex-basis: calc(#{percentage($span / $column-count)} - #{$gap * .5});
+          order: $position;
+
+          @if $use-css-grid {
+            @include supports-cssgrid() {
+              order: inherit;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/// Set a column span width for a single grid item using flex-basis
+/// @param {number} $span - how many columns to span
+/// @param {number} $column-count - how many columns in the grid
+/// @param {number} $gap - gutter between items in the grid
+@mixin flex--grid-item-column-span($span, $column-count, $gap) {
+  $flex-gap: $gap - ($span * ($gap / $column-count));
+  flex-basis: if($flex-gap > 0, calc(#{percentage($span / $column-count)} - #{$flex-gap}), percentage($span / $column-count));
+}
+
+/// Create classes calculating the width of a single grid item in a flex context,
+/// when that item spans multiple columns or is pushed from a column
+/// @param {number} $column-span - how many columns to span or push
+/// @param {number} $column-count - total number of columns in a row
+/// @param {number} $gap - gutter value between margins
+@mixin flex--grid-calc-single-column-span-push($column-span, $column-count, $gap) {
+  $flex-gap: $gap - ($column-span * ($gap / $column-count));
+
+  // calculate width for spanning multiple columns (flex)
+  & .span-#{$column-span} {
+    @include flex--grid-item-column-span($column-span, $column-count, $gap);
+  }
+
+  // calculate push values (flex)
+  @if $generate-advanced-flex-layouts {
+    & .fallback--push-#{$column-span} {
+      $push-gap: $column-span * ($gap / $column-count);
+      margin-left: calc(#{percentage($column-span / $column-count)} + #{$push-gap});
+
+      @if $use-css-grid {
+        @include supports-cssgrid() {
+          margin-left: auto;
+        }
+      }
+    }
+  }
+}
+
+/// Create classes calculating the width of grid items in a flex context,
+/// when those items are in a responsive context
+/// @param {number} $column - how many columns in a row
+/// @param {number} $grid-breakpoint - what breakpoint context this grid is in
+/// @param {number} $column-count - total number of columns in a row
+/// @param {number} $gap - gutter value between margins
+@mixin flex--grid-calc-grid-items--responsive($column, $grid-breakpoint, $column-count, $gap) {
+  $grid-end-column: $column-count - $column + 1;
+  $flex-gap: $gap - ($column * ($gap / $column-count));
+  @each $size, $breakpoint in $breakpoint-map {
+    @include breakpoint($breakpoint) {
+      $breakpoint-context: nth(breakpoint-get-context('min-width'), 1);
+      @if $breakpoint-context == $grid-breakpoint {
+        .#{$size}-span-#{$column} {
+          flex-basis: if($flex-gap > 0, calc(#{percentage($column / $column-count)} - #{$flex-gap}), percentage($column / $column-count));
+        }
+
+        @if $generate-advanced-flex-layouts {
+          [class*='#{$size}-col-#{$column}of#{$column-count}'] {
+            flex-basis: calc(#{percentage($column / $column-count)} - #{$flex-gap});
+          }
+        }
+      }
+    }
+  }
+}

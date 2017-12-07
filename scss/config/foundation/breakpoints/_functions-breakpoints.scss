@@ -1,0 +1,10 @@
+////
+/// @group Breakpoints
+////
+
+/// Get breakpoint from breakpoint map
+/// @param {string} $breakpoint
+/// @returns {string} breakpoint value
+@function get-breakpoint($breakpoint) {
+  @return map-get($breakpoint-map, $breakpoint);
+}

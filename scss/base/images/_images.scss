@@ -1,0 +1,7 @@
+////
+/// @group Base
+////
+
+img {
+  @include image-auto-size();
+}

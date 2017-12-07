@@ -1,0 +1,68 @@
+////
+/// @group Colors
+////
+
+/// Get color from color palette map
+/// @param {string} $color
+/// @param {string} $tone [base]
+/// @returns {color}
+@function get-color($color, $tone: 'base') {
+  @return map-get(map-get($palettes, $color), $tone);
+}
+
+$color-theme--text-dark: #000 !default;
+$color-theme--text-light: #FFF !default;
+$contrast-threshold: 128 !default;
+/// Compares contrast of a given color to the
+/// light/dark arguments and returns whichever is most "contrasty"
+/// @param {color} $color
+/// @param {color} $dark [#000]
+/// @param {color} $light [#FFF]
+/// @link https://www.w3.org/WAI/ER/WD-AERT/#color-contrast
+@function color-contrast($color, $dark: $color-theme--text-dark, $light: $color-theme--text-light) {
+  @if $color == null {
+    @return null;
+  } @else {
+    $yiq: (red($color) * 299 + green($color) * 587 + blue($color) * 114) / 1000;
+    @return if($yiq >= $contrast-threshold, $dark, $light);
+  }
+}
+
+/// returns different link map items based on color input
+/// @param {color} $color
+/// @param {map item} $dark [contrast-dark]
+/// @param {map item} $light [contrast-light]
+@function color-contrast-color-map-switch($color, $dark: contrast-dark, $light: contrast-light) {
+  @if $color == null {
+    @return null;
+  } @else {
+    $yiq: (red($color) * 299 + green($color) * 587 + blue($color) * 114) / 1000;
+    @return if($yiq >= $contrast-threshold, $dark, $light);
+  }
+}
+
+/// Convert a string into a color in our color palette
+/// @param {string} $color-string - expects input similar to, "'primary, base'"
+/// @returns {color}
+@function string-to-color-palette($color-string) {
+  $color-list: str-split($color-string, ':');
+  $palette: str-trim(nth($color-list, 1));
+  @if length($color-list) == 1 {
+    $color: get-color($palette);
+    @return $color
+  } @else {
+    $tone: str-trim(nth($color-list, 2));
+    $color: get-color($palette, $tone);
+    @return $color
+  }
+}
+
+/// Check if argument is a color, or a string we need to transform into a color
+/// @param {color | string} $color
+/// @returns {color}
+@function color-check($color) {
+  @if (type-of($color) != color) {
+    $color: string-to-color-palette($color);
+  }
+  @return $color;
+}

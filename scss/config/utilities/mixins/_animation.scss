@@ -1,0 +1,12 @@
+////
+/// @group Animation
+////
+
+///
+/// @param {properties} $props [all]
+/// @param {time} $duration [.25s]
+@mixin transition($props: all, $duration: .25s) {
+  transition-property: $props;
+  transition-duration: $duration;
+  transition-timing-function: ease-in-out;
+}

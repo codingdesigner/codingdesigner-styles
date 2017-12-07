@@ -1,0 +1,18 @@
+// SET TYPOGRAPHIC SCALE
+$font-sizes-map: (
+  -4: 10px,
+  -3: 12px,
+  -2: 14px,
+  -1: 15px,
+  0: 16px, // $root-typesize
+  1: 21px,
+  2: 22px,
+  3: 26px,
+  4: 27px,
+  5: 48px,
+  6: 56px,
+  7: 64px,
+  8: 72px,
+  9: 88px,
+  10: 96px
+) !default;

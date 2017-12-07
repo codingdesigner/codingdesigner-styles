@@ -1,0 +1,50 @@
+////
+/// @group Layout
+////
+
+/// Center, limit width, add side padding
+/// @param {number} $max-width [1500px]
+/// @param {number} $side-padding [1em]
+@mixin container($max-width: $container--max-width, $side-padding: $container--side-padding, $center: true) {
+  padding-right: $side-padding;
+  padding-left: $side-padding;
+  width: 100%;
+  max-width: $max-width;
+
+  @if ($center) {
+    margin: 0 auto;
+  }
+}
+
+/// Make a child of `container()` stretch to the edge of the page
+/// @param {number} $side-padding [1em]
+@mixin remove-container-padding($side-padding: $container--side-padding) {
+  margin-right: -$side-padding;
+  margin-left: -$side-padding;
+}
+
+/// Center contents using flex
+/// @param {both | horizontal | vertical} $direction [both]
+@mixin center($direction: both) {
+  display: flex;
+  @if ($direction == both or $direction == horizontal) {
+    justify-content: center;
+  }
+  @if ($direction == both or $direction == vertical) {
+    align-items: center;
+  }
+}
+
+/// prefent floated children from overflowing a container
+@mixin clearfix() {
+  &:after {
+    display: table;
+    clear: both;
+    content: "";
+  }
+}
+
+// set element to be at least the height of the viewport
+@mixin viewport-height() {
+  min-height: 100vh;
+}

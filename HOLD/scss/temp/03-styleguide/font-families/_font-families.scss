@@ -1,0 +1,34 @@
+.font-families {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.font-stack {
+  flex-basis: calc((100% / 3) - 4em);
+  margin: 0 4em 2em 0;
+
+  dl {
+    padding-left: 0;
+
+    .font-style {
+      display: flex;
+      align-items: baseline;
+      margin-bottom: .5em;
+    }
+
+    dt {
+      flex-basis: 5em;
+      margin-right: .5em;
+      text-align: right;
+
+      &:after {
+        content: ': ';
+      }
+    }
+
+    dd {
+      margin-left: 0;
+      font-size: 1.5em;
+    }
+  }
+}

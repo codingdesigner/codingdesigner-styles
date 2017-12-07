@@ -1,0 +1,43 @@
+////
+/// @group Typography
+////
+
+// SET FONTS
+
+/// site body font
+/// @type font family string
+$font-body: get-font(sans-serif) !default;
+
+// SET ROOT TYPE SIZES AND LINE HEIGHTS
+
+/// site root type size
+/// @type px
+$root-typesize: 16px !default;
+
+/// Use fluid type sizes on the root element?
+/// @type boolean
+$use-fluid-type: true !default;
+
+/// site minimum type size
+/// @type px
+$root-typesize--min: 14px !default;
+
+/// used to calculate base line height
+$base-line-multiplier: 1.5 !default;
+
+/// baseline size in pixels
+/// set as a multiplier of `$root-typesize`
+/// default is `1.5`
+/// @type px
+$base-line-px: $root-typesize * $base-line-multiplier;
+
+/// baseline size in ems
+/// @type em - calculated
+$base-line-em: em($base-line-px);
+
+/// baseline size w/o unit
+/// @type number - calculated
+$base-line-height-unitless: unitless-convert($base-line-em);
+
+/// limit line-length for readability
+$line-length-limit: 40em !default;

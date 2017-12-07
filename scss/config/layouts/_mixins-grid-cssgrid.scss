@@ -1,0 +1,173 @@
+////
+/// @group Layout
+////
+
+/// Add @supports conditions for when css grid is supported
+@mixin supports-cssgrid() {
+  @supports (display: grid) {
+    @content;
+  }
+}
+
+/// Override flexbox properties if using flexbox fallback
+@mixin flexbox-override() {
+  @if $use-flex-fallback {
+    @content;
+  }
+}
+
+/// Grid container -- CSS Grid version
+/// @param {number} $max-width [null]
+@mixin cssgrid--grid-container($max-width: null) {
+  @include supports-cssgrid() {
+    @include flexbox-override() {
+      flex-wrap: nowrap;
+      justify-content: initial;
+    }
+
+    display: grid;
+  }
+}
+
+/// Set a column span for a single grid item
+/// @param {number} $span - how many columns to span
+@mixin cssgrid--grid-item-column-span($span) {
+  grid-column: span $span;
+}
+
+/// Set a row span for a single grid item
+/// @param {number} $span - how many row to span
+@mixin cssgrid--grid-item-row-span($span) {
+  grid-row: span $span;
+}
+
+/// Set a column span and placement for a single grid item
+/// @param {number} $span - how many columns to span
+/// @param {number} $position - what column to start
+@mixin cssgrid--grid-item-column-placement($span, $position) {
+  grid-column: #{$position} / #{$position + $span};
+}
+
+@mixin cssgrid--column-template($column-set, $gap) {
+  @include supports-cssgrid() {
+    @if type-of($column-set) == number {
+      grid-template-columns: repeat($column-set, 1fr);
+    } @else {
+      grid-template-columns: $column-set;
+    }
+    // sass-lint:disable no-misspelled-properties
+    grid-gap: $gap;
+    // sass-lint:enable no-misspelled-properties
+  }
+}
+
+/// Create class to precisely place a grid item
+/// in a grid spanning multiple columns
+@mixin cssgrid--grid-calc-column-span() {
+  @include supports-cssgrid() {
+    @for $column from 1 through $generated-rows-max {
+      @at-root .span-#{$column} {
+        @include cssgrid--grid-item-column-span($column);
+      }
+    }
+  }
+}
+
+/// Create class to precisely place a grid item
+/// in a grid spanning multiple rows
+@mixin cssgrid--grid-calc-row-spans() {
+  @include supports-cssgrid() {
+    @for $span from 1 through $generated-rows-max {
+      // set how many rows to span (grid)
+      @at-root .row-span-#{$span} {
+        @include cssgrid--grid-item-row-span($span)
+      }
+    }
+  }
+}
+
+/// Create classes calculating the column span and positions of grid items in a css grid context,
+/// when they are explicitly ordered
+@mixin cssgrid--grid-orderable-grid-positions() {
+  @include supports-cssgrid() {
+    @for $span from 1 through $generated-rows-max {
+      $grid-end-column: $generated-rows-max - $span + 1;
+      @for $position from 1 through $grid-end-column {
+        @at-root .col-#{$span}of#{$generated-rows-max}at#{$position} {
+          @include cssgrid--grid-item-column-placement($span, $position);
+        }
+      }
+    }
+  }
+}
+
+/// Create classes calculating the placement of grid items in a css grid context,
+/// when those items are in a responsive context
+/// @param {number} $grid-breakpoint - what breakpoint context this grid is in
+@mixin cssgrid--grid-calc-row-placement--responsive($grid-breakpoint) {
+  @include supports-cssgrid() {
+    @for $span from 1 through $generated-rows-max {
+      // set how many rows to span for each breakpoint (grid)
+      @each $size, $breakpoint in $breakpoint-map {
+        @include breakpoint($breakpoint) {
+          $breakpoint-context: nth(breakpoint-get-context('min-width'), 1);
+          @if $breakpoint-context == $grid-breakpoint {
+            @at-root .#{$size}-row-span-#{$span} {
+              @include cssgrid--grid-item-row-span($span)
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/// Create classes calculating the placement of grid items in a css grid context
+/// as well as in responsive contexts
+/// @param {number} $column-count - total number of columns in a row
+/// @param {number} $gap - gutter value between margins
+/// @param {number} $grid-breakpoint - what breakpoint context this grid is in
+@mixin cssgrid--grid-calc-columns($column-set, $gap, $grid-breakpoint, $generate-child-classes) {
+  @include cssgrid--column-template($column-set, $gap);
+
+  @if (type-of($column-set) == number) and ($generate-child-classes == true) {
+    @include supports-cssgrid() {
+      @for $column from 1 through $column-set {
+        // write classes to precisely place and span columns (grid)
+        $grid-end-column: $column-set - $column + 1;
+
+        // write classes to span columns at breakpoints (grid)
+        @each $size, $breakpoint in $breakpoint-map {
+          @include breakpoint($breakpoint) {
+            $breakpoint-context: nth(breakpoint-get-context('min-width'), 1);
+            @if $breakpoint-context == $grid-breakpoint {
+              .#{$size}-span-#{$column} {
+                @include cssgrid--grid-item-column-span($column);
+              }
+
+              @for $position from 1 through $grid-end-column {
+                .#{$size}-col-#{$column}of#{$column-set}at#{$position} {
+                  @include cssgrid--grid-item-column-placement($column, $position);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // set item order at breakpoints (grid)
+      @each $size, $breakpoint in $breakpoint-map {
+        @include breakpoint($breakpoint) {
+          $breakpoint-context: nth(breakpoint-get-context('min-width'), 1);
+          @if $breakpoint-context == $grid-breakpoint {
+            @for $column from 1 through $column-set {
+              .#{$size}-order-#{$column} {
+                order: $column;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

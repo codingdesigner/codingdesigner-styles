@@ -1,0 +1,30 @@
+////
+/// @group Layout
+////
+
+.page-container {
+  @include container();
+}
+
+.viewport-height {
+  @include viewport-height();
+}
+
+.remove-container-padding {
+  @include remove-container-padding();
+}
+
+// GENERATE GRID CLASSES
+@if ($generate-grid-framework) {
+  .grid-container {
+    @include grid-container();
+  }
+
+  .grid-item {
+    @include grid-item();
+  }
+
+  @include generate-grid-classes();
+
+  @include generate-fixed-grid-breakpoint-classes();
+}

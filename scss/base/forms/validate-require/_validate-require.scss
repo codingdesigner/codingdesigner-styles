@@ -1,0 +1,9 @@
+////
+/// @group Forms
+////
+
+.validation-notice,
+.required-notice {
+  display: none;
+  color: get-color(accent);
+}

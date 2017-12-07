@@ -1,0 +1,114 @@
+////
+/// @group Layout
+////
+
+///
+@mixin grid-technique-warning($use-css-grid, $use-flex-fallback) {
+  @if $use-css-grid == false and $use-flex-fallback == false {
+    @warn "css grid AND / OR flex box fallback must be used";
+  }
+}
+
+/// Set properties for a grid container
+/// @param {number | null} $max-width [null] - set a maximum width
+@mixin grid-container($max-width: null) {
+  @include grid-technique-warning($use-css-grid, $use-flex-fallback);
+
+  @if ($max-width) {
+    max-width: $max-width;
+  }
+
+  // default to display 'flex' for a common fallback
+  @if ($use-flex-fallback) {
+    @include flex--grid-container($max-width);
+  }
+
+  // set to display grid if it is supported
+  @if ($use-css-grid) {
+    @include cssgrid--grid-container($max-width);
+  }
+}
+
+/// Calculate columns for a grid
+/// @param {number} $column-count [2] - how many columns to calculate
+/// @param {number} $gap [2em] - space between cells (gutters)
+/// @param {string} $grid-item-class ['grid-item'] - class to use for grid items (only needed for flexbox fallback technique
+/// @param {number} $grid-breakpoint [null] - set a device width breakpoint for this grid
+@mixin grid-calc-columns($column-set: 2, $gap: $grid-gap, $grid-breakpoint: null, $generate-child-classes: false) {
+  @include grid-technique-warning($use-css-grid, $use-flex-fallback);
+
+  @if type-of($column-set) == number {
+    @if ($use-flex-fallback) {
+      @include flex--grid-calc-columns($column-set, $gap);
+
+      @for $column from 1 through $column-set {
+        @include flex--grid-calc-single-column-span-push($column, $column-set, $gap);
+
+        @if ($grid-breakpoint) {
+          @include flex--grid-calc-grid-items--responsive($column, $grid-breakpoint, $column-set, $gap)
+        }
+      }
+    }
+  }
+
+  // calculate columns (grid)
+  @include cssgrid--grid-calc-columns($column-set, $gap, $grid-breakpoint, $generate-child-classes);
+}
+
+/// Set properties for a grid item
+@mixin grid-item() {
+  @supports (display: grid) {
+    height: 100%;
+
+    .orderable-grid & {
+      grid-row: 1;
+    }
+  }
+}
+
+/// Set span lengths for grid items
+@mixin grid-item-column-span($span, $flex--column-count: 1, $flex--gap: 0) {
+  @include cssgrid--grid-item-column-span($span);
+
+  @if ($use-flex-fallback) {
+    @include flex--grid-item-column-span($span, $flex--column-count, $flex--gap);
+  }
+}
+
+/// Set row span lengths for grid items
+@mixin grid-item-row-span($span) {
+  @include cssgrid--grid-item-row-span($span);
+}
+
+/// Precisely places items in grid columns
+@mixin grid-item-column-placement($span, $position) {
+  @include cssgrid--grid-item-column-placement($span, $position);
+}
+
+/// Set the order of grid items
+/// @param {number} $order
+@mixin grid-item-order($order) {
+  order: $order;
+}
+
+/// Generate grid custom orders
+/// @param {number} $items [$items-max] - how many items can be custom-ordered
+@mixin generate-custom-orders-classes($items: $generated-items-max-flexbox, $responsive: false) {
+  @for $order from 1 through $items {
+    .order-#{$order} {
+      order: $order;
+    }
+  }
+
+  @if $responsive == true {
+    @each $size, $breakpoint in $breakpoint-map {
+      @include breakpoint($breakpoint) {
+        @for $order from 1 through $generated-items-max-flexbox {
+          .#{$size}-order-#{$order} {
+            order: $order;
+          }
+        }
+      }
+    }
+  }
+}

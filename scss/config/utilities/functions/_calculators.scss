@@ -1,0 +1,93 @@
+////
+/// @group Utilities
+////
+
+$root-typesize: 16px;
+
+/// Calculate pixels
+/// @param $value
+/// @param $px
+/// @returns {number}
+@function px($value, $px: 16) {
+  @return (($value * $px) / 1em) * 1px;
+}
+
+/// Calculate Rem
+/// @param {pixel} $px
+/// @param {pixel} $root-px [$root-typesize] - root typesize in pixels
+/// @returns {number}
+@function fontsize-rem($px, $root-px: $root-typesize) {
+  @if unit($px) == em {
+    @return $px;
+  } @else {
+    @return #{$px / $root-px}rem;
+  }
+}
+
+/// Calculate ems
+/// @param $value
+/// @param $context
+/// @returns {number}
+@function em($value, $context: $root-typesize) {
+  @if unit($value) == '' {
+    $value: $value * 1em;
+  }
+  @if unit($value) != 'px' {
+    $value: px($value);
+  }
+  @if unit($context) != 'px' {
+    $context: px($context);
+  }
+  @return ($value / $context) * 1em;
+}
+
+/// Convert em to unitless
+/// @param {number} $value
+/// @param {number} $root [$root-typesize]
+/// @returns {number}
+@function unitless-convert($value, $root: $root-typesize) {
+  @if unit($value) == '' {
+    $value: $value;
+  }
+  @if unit($value) == 'em' {
+    $value: $value / 1em;
+  }
+  @if unit($value) == 'px' {
+    $value: $value / $root;
+  }
+  @return $value;
+}
+
+/// Strip unit
+/// @param {number} $value
+/// @returns {number}
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+
+/// Calculate percentage widths from pixels based on common container width
+/// @param {number} $pixels
+/// @param {number} $container [1280px]
+/// @returns {number}
+@function res-width($pixels, $container: 1280px) {
+  @return percentage($pixels / $container);
+}
+
+/// The CSS calc() function can't calculate a zero w/o a unit and a number that has a unit,
+/// so we suffix a 'px' if the number is `0`
+/// @param {number} $number
+/// @returns {number} - suffixes with 'px' if the input value was zero
+@function fix-calc-zeros($number) {
+  // sass-lint:disable zero-unit
+  $number: if($number != 0, $number, 0px);
+  // sass-lint:zero-unit
+  @return $number;
+}
+
+/// Calculate the width of a column in an equal-sized grid
+/// @param {number} $cols - How many columns to calculate
+/// @returns {percent} - Width in percent
+@function column-calc($cols, $total: 12) {
+  @return $cols / $total * 100%;
+}

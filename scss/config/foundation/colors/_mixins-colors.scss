@@ -1,0 +1,31 @@
+////
+/// @group Colors
+////
+
+/// set common background and contrasting text color
+/// @param {string} $palette [info]
+/// @param {string} $tone [base]
+@mixin color-background($palette: primary, $tone: base) {
+  $tone: if($tone == 'primary', 'base', $tone);
+  $color: get-color($palette, $tone);
+  background-color: $color;
+  color: color-contrast($color);
+}
+
+/// set common text color
+/// @param {string} $palette [info]
+/// @param {string} $tone [base]
+@mixin color-text($palette: primary, $tone: base) {
+  $tone: if($tone == 'primary', 'base', $tone);
+  color: get-color($palette, $tone);
+}
+
+/// set common background and contrasting text color
+/// @param {string} $palette [info]
+/// @param {string} $tone [base]
+/// Map items will include colors for `initial`, `active`, `visited`, `hover`, `focus`
+@mixin color-link($palette: primary, $tone: base) {
+  $tone: if($tone == 'primary', 'base', $tone);
+  $color: get-color($palette, $tone);
+  @include button-link-colors($color);
+}

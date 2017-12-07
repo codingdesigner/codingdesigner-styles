@@ -1,0 +1,121 @@
+{
+  "palette": [
+    {
+      "colorGroup": "red",
+      "name": "base",
+      "value": "red",
+      "scss": "get-color(red)"
+    },
+    {
+      "colorGroup": "orange",
+      "name": "base",
+      "value": "orange",
+      "scss": "get-color(orange)"
+    },
+    {
+      "colorGroup": "yellow",
+      "name": "base",
+      "value": "yellow",
+      "scss": "get-color(yellow)"
+    },
+    {
+      "colorGroup": "green",
+      "name": "base",
+      "value": "green",
+      "scss": "get-color(green)"
+    },
+    {
+      "colorGroup": "blue",
+      "name": "base",
+      "value": "blue",
+      "scss": "get-color(blue)"
+    },
+    {
+      "colorGroup": "blue",
+      "name": "light",
+      "value": "lightblue",
+      "scss": "get-color(blue, light)"
+    },
+    {
+      "colorGroup": "blue",
+      "name": "faded",
+      "value": "#8093AB",
+      "scss": "get-color(blue, faded)"
+    },
+    {
+      "colorGroup": "indigo",
+      "name": "base",
+      "value": "indigo",
+      "scss": "get-color(indigo)"
+    },
+    {
+      "colorGroup": "violet",
+      "name": "base",
+      "value": "violet",
+      "scss": "get-color(violet)"
+    },
+    {
+      "colorGroup": "gray",
+      "name": "base",
+      "value": "gray",
+      "scss": "get-color(gray)"
+    },
+    {
+      "colorGroup": "gray",
+      "name": "light",
+      "value": "#e5e5e5",
+      "scss": "get-color(gray, light)"
+    },
+    {
+      "colorGroup": "gray",
+      "name": "dark",
+      "value": "darkgray",
+      "scss": "get-color(gray, dark)"
+    },
+    {
+      "colorGroup": "white",
+      "name": "white",
+      "value": "white",
+      "scss": "get-color(white)"
+    },
+    {
+      "colorGroup": "white",
+      "name": "warm",
+      "value": "hsl(48, 20%, 95%)",
+      "scss": "get-color(white, warm)"
+    },
+    {
+      "colorGroup": "white",
+      "name": "transparent",
+      "value": "hsla(0, 0%, 100%, 0)",
+      "scss": "get-color(white, transparent)"
+    },
+    {
+      "colorGroup": "white",
+      "name": "half-trans",
+      "value": "hsla(0, 0%, 100%, 0.5)",
+      "scss": "get-color(white, halftrans)"
+    },
+    {
+      "colorGroup": "white",
+      "name": "semi-trans",
+      "value": "hsla(0, 0%, 100%, 0.15)",
+      "scss": "get-color(white, semitrans)"
+    },
+    {
+      "colorGroup": "black",
+      "name": "base",
+      "value": "black",
+      "scss": "get-color(black)"
+    },
+    {
+      "colorGroup": "black",
+      "name": "light",
+      "value": "hsl(0, 0%, 8%)",
+      "scss": "get-color(black, light)"
+    }
+  ],
+  "meta": {
+    "description": "To add to these items, use Sass variables that start with <code>//get-color</code> in <code>scss/02-foundation/colors/_schema.scss</code>"
+  }
+}

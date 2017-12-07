@@ -1,0 +1,14 @@
+////
+/// @group figure
+////
+
+figure {
+  margin-top: 0;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+figcaption {
+  margin: get-size(type-vertical) 0;
+  font-size: get-font-size(-1);
+}

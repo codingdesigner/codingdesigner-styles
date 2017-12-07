@@ -1,0 +1,136 @@
+////
+/// @group Typography
+////
+
+/// Get font from font map
+/// @param {string} $font
+/// @returns {string} font stack value
+@function get-font($font) {
+  @return map-get($font-map, $font);
+}
+
+/// Get font size from font size map
+/// @param {integer} $font-size
+/// @returns {number} font size value from $font-sizes map/**/
+@function get-font-size($font-size) {
+  @return map-get($font-sizes-map, $font-size);
+}
+
+/// Check to see if a font string matches a defined font string
+/// in our $font-map
+/// @param {string} $font
+@function font-check-from-map($font) {
+  $font-from-map: get-font($font);
+  @if $font-from-map != null {
+    @return $font-from-map;
+  } @else {
+    @return $font;
+  }
+}
+
+/// Get font family from $heading-typography map at a heading level
+/// @param {h1 | h2 | h3 | h4 | h5 | h6} $heading-level - a heading level
+/// @returns {string} font family value from $heading-typography map
+@function get-heading-font($heading-level) {
+  $heading: map_get($heading-definitions, $heading-level);
+  $heading-font: map_get($heading, font);
+  $font-from-map: get-font($heading-font);
+  @return font-check-from-map($heading-font);
+}
+
+/// Get font size from $heading-typography map at a heading level
+/// @param {h1 | h2 | h3 | h4 | h5 | h6} $heading-level - a heading level
+/// @returns {number} font size value from $heading-typography map
+@function get-heading-size($heading-level) {
+  $heading: map_get($heading-definitions, $heading-level);
+  $size: map_get($heading, size);
+  $size-from-map: get-font-size($size);
+  @if $size-from-map != null {
+    @return $size-from-map;
+  } @else {
+    @return $size;
+  }
+}
+
+/// Get line height from $heading-typography map at a heading level
+/// @param {h1 | h2 | h3 | h4 | h5 | h6} $heading-level - a heading level
+/// @returns {number} line height value from $heading-typography map
+@function get-heading-line-height($heading-level) {
+  $heading: map_get($heading-definitions, $heading-level);
+  @return map_get($heading, line-height);
+}
+
+/// Get top margin from $heading-typography map at a heading level
+/// @param {h1 | h2 | h3 | h4 | h5 | h6} $heading-level - a heading level
+/// @returns {number} top margin value from $heading-typography map
+@function get-heading-margin-top($heading-level) {
+  $heading: map_get($heading-definitions, $heading-level);
+  @return map_get($heading, margin-top);
+}
+
+/// Get bottom margin from $heading-typography map at a heading level
+/// @param {h1 | h2 | h3 | h4 | h5 | h6} $heading-level - a heading level
+/// @returns {number} bottom margin value from $heading-typography map
+@function get-heading-margin-bottom($heading-level) {
+  $heading: map_get($heading-definitions, $heading-level);
+  @return map_get($heading, margin-bottom);
+}
+
+/// Get font weight from $heading-typography map at a heading level
+/// @param {h1 | h2 | h3 | h4 | h5 | h6} $heading-level - a heading level
+/// @returns {string | number} font weight value from $heading-typography map
+@function get-heading-weight($heading-level) {
+  $heading: map_get($heading-definitions, $heading-level);
+  @return map_get($heading, weight);
+}
+
+/// Get font color from $heading-typography map at a heading level
+/// @param {h1 | h2 | h3 | h4 | h5 | h6} $heading-level - a heading level
+/// @returns {color} font color value from $heading-typography map
+@function get-heading-color($heading-level) {
+  $heading: map_get($heading-definitions, $heading-level);
+  $heading-color: map_get($heading, color);
+  $heading-color: color-check($heading-color);
+  @return $heading-color;
+}
+
+/// Calculate the em value of _n_ baselines
+///
+/// set in `$base-line-em`
+/// @param {integer} $lines [1]
+/// @param {bool} $context [false]
+/// @returns {number} a multiple of `$base-line-em`
+@function base-line-calc($lines: 1, $context: false) {
+  $calc: null;
+  @if ($context) {
+    $calc: em($lines * $base-line-em, em($context));
+  } @else {
+    $calc: $lines * $base-line-em;
+  }
+  @return $calc;
+}
+
+/// Get color parameter from color-theme--link-map
+/// @param {string} $link-type ['normal'] - 'normal', 'border', 'faux-underline'
+/// @param {string} $state ['initial'] - 'initial', 'active', 'visited', 'hover', 'focus', 'size', 'background-color'
+/// @returns {color | string}
+@function get-link-parameter($link-type: 'normal', $state: 'initial') {
+  $type-map: map_get($link-definitions, $link-type);
+  $state-value: map_get($type-map, $state);
+  @if (type-of($state-value) == color or type-of($state-value) == string) {
+    $state-value: color-check($state-value);
+  }
+  @return $state-value;
+}
+
+/// Calculate a heading margin as a portion of a baseline or as and em based on a united value
+/// @param {number} $margin-value - unitless or united number
+/// @param {number} $context - the size of the text to which this margin will apply
+/// @returns {em}
+@function heading-calc-margin($margin-value, $context) {
+  @if unit($margin-value) == '' {
+    @return base-line-calc($margin-value, $context);
+  } @else {
+    @return em($margin-value, $context);
+  }
+}

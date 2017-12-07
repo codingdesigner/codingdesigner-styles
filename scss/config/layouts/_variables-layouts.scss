@@ -1,0 +1,42 @@
+////
+/// @group Layout
+////
+
+
+/// the default gutter between grid items
+$grid-gap: 2em !default;
+
+/// Always set to true in production.
+$use-css-grid: true;
+
+/// set to true if you require flexbox support (for older IE primarily)
+$use-flex-fallback: false !default;
+
+/// set to true if you want to generate a class based grid system
+$generate-grid-framework: false !default;
+
+/// *experimental* set to true if you are using the flex fallback AND you want it to attempt to replicate some of the precise positioning features of css grid
+$generate-advanced-flex-layouts: false !default;
+
+/// maximum number of item for custom ordering
+/// the number of grid items classes for the flexbox fallback. Only needed when using advanced flex layouts
+$generated-items-max-flexbox: 10 !default;
+
+/// max width for container() mixin
+/// @type number
+$container--max-width: 1600px !default;
+
+/// side padding for container() mixin
+/// @type number
+$container--side-padding: 2em !default;
+
+/// minimum number of columns in this grid system
+$generated-cols-min: 1 !default;
+
+/// maximum number of columns in this grid system
+/// the number of columns generated. Set this to the smallest number you need.
+$generated-cols-max: 12 !default;
+
+/// maximum number of rows for row spans.
+/// defaults to $cols-max
+$generated-rows-max: $generated-cols-max !default;

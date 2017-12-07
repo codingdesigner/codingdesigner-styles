@@ -1,0 +1,30 @@
+////
+/// @group Base
+////
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: color-check($color-theme--background);
+  height: 100%;
+  line-height: $base-line-height-unitless;
+  color: color-check($color-theme--text);
+  font-family: font-check-from-map($font-body);
+
+  @if ($use-fluid-type) {
+    // This will adjust the base HTML font size fluidly between the xsmall and
+    // xlarge breakpoints to a font size between $root-typesize--min minimum to $root-typesize maximum.
+    @include fluid-type(font-size, get-breakpoint(xs), get-breakpoint(xl), $root-typesize--min, $root-typesize);
+  }
+
+  @else {
+    font-size: unitless-convert($root-typesize, 16px) * 100%;
+  }
+}
+
+body {
+  height: 100%;
+  min-height: 100%;
+}

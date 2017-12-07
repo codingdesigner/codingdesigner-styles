@@ -1,0 +1,11 @@
+////
+/// @group Forms
+////
+
+select {
+  @include defaults--field--select();
+
+  &:focus {
+    @include focus();
+  }
+}

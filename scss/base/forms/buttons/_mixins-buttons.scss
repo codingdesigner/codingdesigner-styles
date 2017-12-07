@@ -1,0 +1,15 @@
+////
+/// @group Forms
+////
+
+/// Set button defaults
+@mixin button() {
+  @include link-clean();
+  @include set-link-colors(button);
+  display: inline-block;
+  border-radius: 0.2em;
+  background-color: get-color(grayscale);
+  padding: 3px 0.5em;
+  text-align: center;
+  text-decoration: none;
+}

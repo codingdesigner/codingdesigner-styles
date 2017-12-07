@@ -1,0 +1,53 @@
+////
+/// @group Layout
+////
+
+/// Generate grid classes
+/// @param {number} $min [$cols-min] - minimum amount of columns to generate
+/// @param {number} $max [$cols-max] - maximum amount of columns to generate
+@mixin generate-grid-classes($min: $generated-cols-min, $max: $generated-cols-max) {
+  @if $use-flex-fallback {
+    @include flex--grid-item-common('.grid-item', $grid-gap);
+  }
+
+  @for $column-count from $generated-cols-min through $generated-cols-max {
+    .cols-#{$column-count} {
+      @include grid-calc-columns($column-count, $generate-child-classes: true);
+    }
+
+    @if $use-flex-fallback && $generate-advanced-flex-layouts {
+      @include flex--grid-orderable-grid-positions($column-count, $grid-gap);
+    }
+
+    @each $size, $breakpoint in $breakpoint-map {
+      @include breakpoint($breakpoint) {
+        .#{$size}-cols-#{$column-count} {
+          @include grid-calc-columns($column-count, $grid-breakpoint: $breakpoint, $generate-child-classes: true)
+        }
+      }
+    }
+  }
+
+  @include cssgrid--grid-calc-column-span();
+
+  @include cssgrid--grid-calc-row-spans();
+
+  @include cssgrid--grid-orderable-grid-positions();
+
+  @include generate-custom-orders-classes($responsive: true);
+
+  @each $size, $breakpoint in $breakpoint-map {
+    @include cssgrid--grid-calc-row-placement--responsive($grid-breakpoint: $breakpoint);
+  }
+}
+
+/// generate classes for fixed width grids for each breakpoint
+@mixin generate-fixed-grid-breakpoint-classes() {
+  @each $size, $breakpoint in $breakpoint-map {
+    @include breakpoint($breakpoint) {
+      .grid-fixed {
+        width: $breakpoint;
+      }
+    }
+  }
+}

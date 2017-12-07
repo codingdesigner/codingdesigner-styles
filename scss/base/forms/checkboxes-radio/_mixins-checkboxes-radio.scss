@@ -1,0 +1,113 @@
+////
+/// @group Forms
+////
+
+
+///
+@mixin defaults--field--checkboxes-radios() {
+  visibility: hidden;
+  width: inherit;
+}
+
+///
+@mixin checkbox-arrow($color: get-color(grayscale), $show: true, $box-size: 1.5em) {
+  $foo: $box-size;
+  @if ($show) {
+    opacity: 1;
+  } @else {
+    top: calc(#{$box-size * 1.2} * .5); // 1.2  multiplier adjusts for line-height issues
+    left: calc(#{$box-size} * .5);
+    transform: translateX(-50%) translateY(-50%);
+    opacity: 0;
+    content: "✔︎";
+  }
+}
+
+///
+@mixin checkbox--box-replacement($toggle-switch: false, $box-size: 1.5em) {
+  margin-right: .5em;
+  border: 1px solid get-color(grayscale);
+  height: $box-size;
+
+  @if $toggle-switch == false {
+    border-radius: get-size(border-radius);
+    width: $box-size;
+  } @else {
+    border-radius: 14px;
+    width: $box-size * 2;
+  }
+}
+
+///
+/// @param {string} $position [relative]
+@mixin pseudo-element($position: relative) {
+  display: block;
+  position: $position;
+  content: '';
+}
+
+///
+@mixin checkbox-radio--label() {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+///
+@mixin checkbox-radio--disabled() {
+  opacity: .5;
+}
+
+///
+@mixin checkbox-radio--invalid--label() {
+  @include color-text(primary);
+}
+
+///
+@mixin checkbox--switch-dot($box-size: 1.5em) {
+  top: calc(#{$box-size * 1.16} * .5); // 1.16 multiplier adjusts for centering issues
+  left: calc(#{$box-size} * .5);
+  transform: translateX(-50%) translateY(-50%);
+  opacity: 1;
+  border: 0;
+  border-radius: 50%;
+  background-color: get-color(grayscale, dark);
+  width: $box-size * .666;
+  height: $box-size * .666;
+  transition-property: background-color, transform;
+  transition-duration: .3s;
+  transition-timing-function: ease-in-out;
+}
+
+///
+@mixin checkbox--switch-dot-active() {
+  transform: translateX(1.1em) translateY(-50%);
+  opacity: 1;
+  background-color: get-color(grayscale);
+}
+
+///
+@mixin radio--circle-replacement($box-size: 1.5em) {
+  margin-right: .5em;
+  border: 1px solid get-color(grayscale);
+  border-radius: 50%;
+  background-color: get-color(grayscale, light);
+  width: $box-size;
+  height: $box-size;
+}
+
+///
+@mixin radio--active-replacement($show: true, $box-size: 1.5em) {
+  @if ($show) {
+    opacity: 1;
+  } @else {
+    top: calc(#{$box-size * 1.16} * .5); // 1.16  multiplier adjusts for centering issues
+    left: calc(#{$box-size * 1.06} * .5); // 1.06  multiplier adjusts for centering issues
+    transform: translateX(-50%) translateY(-50%);
+    opacity: 0;
+    border-radius: 50%;
+    background-color: get-color(grayscale);
+    width: $box-size * .666;
+    height: $box-size * .666;
+  }
+}

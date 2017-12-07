@@ -1,0 +1,68 @@
+/// Set heading values in a map
+/// * recommended size is pulled from get-font-size()
+/// * line-height is normal unitless line height
+/// * margin-top and margin-bottom are calculated as a percentage of a base line `$base-line-em`
+/// * margin-top and margin-bottom are only used if `$headings-calc-margins` is set to true
+/// @example
+///   h1: (
+///     size: get-font-size(5),
+///     line-height: 1.1,
+///     margin-top: 0.5, // Percentage of $base-line-em
+///     margin-bottom: 0.5 // Percentage of $base-line-em
+///   ),
+$heading-definitions: (
+  h1: (
+    font: sans-serif,
+    size: 3,
+    color: get-color(primary),
+    line-height: 1.5,
+    margin-top: 0.5em,
+    margin-bottom: 0.5em,
+    weight: 800
+  ),
+  h2: (
+    font: sans-serif,
+    size: 2,
+    color: get-color(primary, light),
+    line-height: 1.5,
+    margin-top: 0.5em,
+    margin-bottom: 0.5em,
+    weight: 600
+  ),
+  h3: (
+    font: sans-serif,
+    size: 1,
+    color: get-color(primary),
+    line-height: 1.5,
+    margin-top: 0.5em,
+    margin-bottom: 0.5em,
+    weight: 800
+  ),
+  h4: (
+    font: sans-serif,
+    size: 0,
+    color: get-color(primary),
+    line-height: 1.3,
+    margin-top: 0.5em,
+    margin-bottom: 0.5em,
+    weight: 800
+  ),
+  h5: (
+    font: sans-serif,
+    size: -1,
+    color: get-color(primary),
+    line-height: 1.5,
+    margin-top: 0.25em,
+    margin-bottom: 0.25em,
+    weight: 800
+  ),
+  h6: (
+    font: sans-serif,
+    size: -1,
+    color: get-color(primary),
+    line-height: 1.5,
+    margin-top: 0.25em,
+    margin-bottom: 0.25em,
+    weight: 800
+  )
+) !default;

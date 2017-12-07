@@ -1,0 +1,73 @@
+.nav {
+  .toggled-menu & {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: get-z(toggled-menu);
+    background-color: get-color(white);
+    min-width: 20%;
+    overflow: hidden;
+  }
+
+  @include breakpoint($bp--large) {
+    position: relative;
+    background-color: transparent;
+  }
+
+  .expand-menu {
+    display: none;
+  }
+
+  .subnav {
+    margin-top: $spacing-1;
+    margin-bottom: $spacing-5;
+
+    a {
+      margin: 0;
+    }
+  }
+
+  ul {
+    display: none;
+    margin: 0;
+    padding: 0;
+
+    .toggled-menu & {
+      display: block;
+    }
+
+    @include breakpoint($bp--large) {
+      display: block;
+    }
+
+    li {
+      margin-bottom: $spacing-1;
+      list-style-image: none;
+      list-style-position: outside;
+      list-style-type: none;
+    }
+  }
+
+  > ul {
+    margin: $spacing-7;
+  }
+}
+
+.mask {
+  .toggled-menu & {
+    display: block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 20%;
+    z-index: get-z(mask);
+    background-color: get-color(black, semitrans);
+    cursor: pointer;
+    width: 80%;
+    height: 100%;
+
+    @include breakpoint($bp--large) {
+      display: none;
+    }
+  }
+}

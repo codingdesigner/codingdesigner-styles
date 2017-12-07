@@ -1,0 +1,61 @@
+/// Set link colors and parameters in a map
+/// * Three link type options
+///   * __normal__ - standard underlined link
+///   * __border__ - use `bottom-border` to underline link
+///   * __faux-underline__ - use `background-image` and `text-shadow` to underline link, with descenders gracefully breaking the line
+/// * underline and faux-underline accept a `size` value
+/// * faux-underline accepts a `background-color` value, for the for the color behind the link
+$link-definitions: (
+  normal: (
+    initial: get-color(primary, faded),
+    active: get-color(primary, faded),
+    visited: get-color(primary, faded),
+    hover: get-color(primary, light),
+    focus: get-color(primary, light)
+  ),
+  border: (
+    initial: get-color(primary, faded),
+    active: get-color(primary, faded),
+    visited: get-color(primary, faded),
+    hover: get-color(primary, light),
+    focus: get-color(primary, light),
+    size: 1px
+  ),
+  faux-underline: (
+    initial: get-color(primary, faded),
+    active: get-color(primary, faded),
+    visited: get-color(primary, faded),
+    hover: get-color(primary, light),
+    focus: get-color(primary, light),
+    size: 1px,
+    background-color: get-color(grayscale, white)
+  ),
+  reversed: (
+    initial: get-color(primary, light),
+    active: get-color(primary, light),
+    visited: get-color(primary, light),
+    hover: get-color(primary, faded),
+    focus: get-color(primary, faded)
+  ),
+  button: (
+    initial: get-color(grayscale, lightest),
+    active: get-color(grayscale, light),
+    visited: get-color(grayscale, light),
+    hover: get-color(grayscale, lightest),
+    focus: get-color(grayscale, light)
+  ),
+  contrast-light: (
+    initial: get-color(grayscale, lightest),
+    active: get-color(grayscale, light),
+    visited: get-color(grayscale, light),
+    hover: get-color(grayscale, lightest),
+    focus: get-color(grayscale, light)
+  ),
+  contrast-dark: (
+    initial: get-color(grayscale, darkest),
+    active: get-color(grayscale, dark),
+    visited: get-color(grayscale, dark),
+    hover: get-color(grayscale, darkest),
+    focus: get-color(grayscale, dark)
+  )
+) !default;

@@ -1,0 +1,18 @@
+////
+/// @group Typography
+////
+
+
+/// Font Map
+/// * Store font stack strings in a map
+/// * Define font sizes in one list for tighter typographic control
+///
+/// @example   Apply font  using the `get-font()` function
+///   `font-family: get-font(serif);`
+/// @type Map
+$font-map: (
+  sans-serif: #{"Proxima Nova", "Helvetica Neue", helvetica, sans-serif},
+  serif: #{"Adobe Caslon Pro", "Times New Roman", serif},
+  monospace: #{monospace},
+  adobe-blank: #{'AdobeBlank', sans-serif}
+) !default;

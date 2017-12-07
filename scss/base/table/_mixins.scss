@@ -1,0 +1,32 @@
+////
+/// @group Base
+////
+
+/// defaults for table cells
+/// @param {number | list} $padding [.5em]
+@mixin table-cell-defaults($padding: .5em) {
+  padding: $padding;
+  vertical-align: bottom;
+  text-align: left;
+}
+
+/// borders for table cells
+/// @param {number} $border-width [1px]
+/// @param {color} $border-color [lightgray]
+@mixin table-cell-borders($border-width: 1px, $border-color: lightgray) {
+  border-top: $border-width solid $border-color;
+}
+
+/// borders for table head
+/// @param {number} $border-width [1px]
+/// @param {color} $border-color [lightgray]
+@mixin thead-defaults($border-width: 2px, $border-color: lightgray) {
+  border-bottom: $border-width solid $border-color;
+}
+
+/// borders for table footer
+/// @param {number} $border-width [1px]
+/// @param {color} $border-color [lightgray]
+@mixin tfoot-defaults($border-width: 2px, $border-color: lightgray) {
+  border-top: $border-width solid $border-color;
+}

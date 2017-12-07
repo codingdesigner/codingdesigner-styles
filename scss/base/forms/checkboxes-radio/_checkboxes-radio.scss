@@ -1,0 +1,128 @@
+////
+/// @group Forms
+////
+
+input {
+  &[type="checkbox"] {
+    @include defaults--field--checkboxes-radios();
+
+    &:checked {
+      + label {
+        &:after {
+          @include checkbox-arrow($show: true);
+        }
+      }
+    }
+
+    &:disabled {
+      + label {
+        @include checkbox-radio--disabled();
+      }
+    }
+
+    &.checkbox__invalid,
+    &:invalid {
+      + label {
+        @include checkbox-radio--invalid--label();
+
+        &:before {
+          @include invalid-defaults();
+        }
+
+        &:after {
+          @include checkbox-arrow(get-color(grayscale));
+        }
+      }
+    }
+
+    + label {
+      @include checkbox-radio--label();
+
+      &:hover {
+        &:before {
+          @include field-hover();
+        }
+      }
+
+      &:before {
+        @include pseudo-element();
+        @include checkbox--box-replacement();
+      }
+
+      &:after {
+        @include pseudo-element(absolute);
+        @include checkbox-arrow($show: false);
+        @include transition();
+      }
+    }
+
+    // toggle-switch checkboxes
+    &.checkbox--switch {
+      &:checked {
+        + label {
+          &:after {
+            @include checkbox--switch-dot-active();
+          }
+        }
+      }
+
+      + label {
+        &:hover {
+          &:before {
+            @include field-hover();
+          }
+        }
+
+        &:before {
+          @include checkbox--box-replacement($toggle-switch: true)
+        }
+
+        &:after {
+          @include pseudo-element(absolute);
+          @include checkbox--switch-dot();
+        }
+      }
+
+    }
+  }
+
+  &[type="radio"] {
+    @include defaults--field--checkboxes-radios();
+
+    &:checked {
+      + label {
+        &:after {
+          @include radio--active-replacement($show: true);
+        }
+      }
+    }
+
+    &:disabled {
+      + label {
+        @include checkbox-radio--disabled();
+      }
+    }
+
+    + label {
+      @include checkbox-radio--label();
+
+      &:hover {
+        &:before {
+          @include field-hover();
+        }
+      }
+
+      &:before {
+        @include pseudo-element();
+        @include radio--circle-replacement();
+      }
+
+      &:after {
+        @include pseudo-element(absolute);
+        @include radio--active-replacement($show: false);
+        @include transition();
+      }
+    }
+  }
+
+}

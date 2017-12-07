@@ -1,0 +1,7 @@
+.template-documentation {
+  .row {
+    @include breakpoint($bp--large) {
+      @include grid-container(12% 88%, 2em);
+    }
+  }
+}

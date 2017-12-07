@@ -1,0 +1,109 @@
+////
+/// @group Utilities
+////
+
+$pi: 3.14159265359;
+$phi: 1.61803398875;
+$_precision: 10;
+
+/// Calculating pow
+/// @param $base
+/// @param $exp
+/// @returns {number}
+@function pow($base, $exp) {
+  $value: $base;
+  @if $exp > 1 {
+    @for $i from 2 through $exp {
+      $value: $value * $base;
+    }
+  }
+  @if $exp < 1 {
+    @for $i from 0 through -$exp {
+      $value: $value / $base;
+    }
+  }
+  @return $value;
+}
+
+/// Calculating fact
+/// @param $num
+/// @returns {number}
+@function fact($num) {
+  $fact: 1;
+  @if $num > 0 {
+    @for $i from 1 through $num {
+      $fact: $fact * $i;
+    }
+  }
+  @return $fact;
+}
+
+/// toFixed() function in Sass
+/// @author Hugo Giraudel
+/// @param {Number} $float - Number to format
+/// @param {Number} $digits [2] - Number of digits to leave
+/// @returns {Number}
+@function to-fixed($float, $digits: 2) {
+  $sass-precision: 5;
+
+  $pow: pow(10, $digits);
+  @return round($float * $pow) / $pow;
+}
+
+/// convert to unitless rad
+/// @param $angle
+/// @returns {number}
+@function _to_unitless_rad($angle) {
+  @if unit($angle) == "deg" {
+    $angle: $angle / 180deg * $pi;
+  }
+  @if unit($angle) == "rad" {
+    $angle: $angle / 1rad;
+  }
+  @return $angle;
+}
+
+/// Calculating sin
+/// @param $angle
+/// @returns {number}
+@function sin($angle) {
+  $a: _to_unitless_rad($angle);
+  $sin: $a;
+  @for $n from 1 through $_precision {
+    $sin: $sin + (pow(-1, $n) / fact(2 * $n + 1) ) * pow($a, (2 * $n + 1));
+  }
+  @return $sin;
+}
+
+/// Calculating cos
+/// @param $angle
+/// @returns {number}
+@function cos($angle) {
+  $a: _to_unitless_rad($angle);
+  $cos: 1;
+  @for $n from 1 through $_precision {
+    $cos: $cos + ( pow(-1, $n) / fact(2*$n) ) * pow($a, 2*$n);
+  }
+  @return $cos;
+}
+
+/// Calculating tan
+/// @param $angle
+/// @returns {number}
+@function tan($angle) {
+  @return sin($angle) / cos($angle);
+}
+
+/// Calculating larger side of a golden ratio
+/// @param $number - size of golden ratio container
+/// @returns {number}
+@function golden-large($number) {
+  @return $number / $phi;
+}
+
+/// Calculating smaller side of a golden ratio
+/// @param $number - size of golden ratio container
+/// @returns {number}
+@function golden-small($number) {
+  @return $number - ($number / $phi);
+}

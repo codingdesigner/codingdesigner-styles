@@ -1,6 +1,6 @@
 {
-  "name": "@condenast/autopilot-styles",
-  "version": "1.0.29-alpha",
+  "name": "codingdesigner-styles",
+  "version": "0.1.0",
   "description": "",
   "scripts": {
     "build:sass": "gulp build:sass",
@@ -11,17 +11,14 @@
     "pretest": "rm -rf build && gulp validate:sass && gulp build:sass",
     "test": "exit 0"
   },
-  "repository": "CondeNast/autopilot-styles",
-  "homepage": "https://github.com/CondeNast/autopilot-styles#readme",
-  "bugs": "https://github.com/CondeNast/autopilot-styles/issues",
+  "repository": "codingdesigner-styles",
+  "homepage": "https://github.com/codingdesigner/codingdesigner-styles",
+  "bugs": "https://github.com/codingdesigner/codingdesigner-styles/issues",
   "contributors": [
-    "@CondeNast/autopilot-core",
-    "@CondeNast/experience-platform"
+    "codingdesigner"
   ],
   "keywords": [
-    "autopilot",
-    "copilot",
-    "experience platform"
+    "scss"
   ],
   "license": "SEE LICENSE IN LICENSE",
   "engines": {

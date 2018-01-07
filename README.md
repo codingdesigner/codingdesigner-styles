@@ -1,10 +1,4 @@
-# autopilot-styles
-A central domain for shared styles and tooling
-
-## What is the intent of this project?
-- define a modular SCSS structure
-- set up common starting place capable of supporting any design
-- set up good styling defaults
+# codingdesigner-styles
 
 ## Get Started
 - `npm install`
@@ -46,11 +40,11 @@ scss-component folder
 
 ## Grids and Layout
 
-Autopilot-styles includes a new layout system based on the new [CSS Grid](https://developer.mozilla.org/en-US/d…) standard, with an optional Flexbox fallback. CSS Grid allows us to create precise layouts with much less code than previous techniques, and many layouts that were impossible, difficult, or brittle previously. There are a few ways to use this system. 
+codingdesigner-styles includes a new layout system based on the new [CSS Grid](https://developer.mozilla.org/en-US/d…) standard, with an optional Flexbox fallback. CSS Grid allows us to create precise layouts with much less code than previous techniques, and many layouts that were impossible, difficult, or brittle previously. There are a few ways to use this system.
 
 ### Directly with Mixins
 
-This method generates the least amount of compiled CSS and offers the most control over the design. The following code will create a simple 3 column grid. 
+This method generates the least amount of compiled CSS and offers the most control over the design. The following code will create a simple 3 column grid.
 
 ```scss
 .some-selector {
@@ -86,7 +80,7 @@ With [Breakpoint](https://github.com/at-import/breakpoint) you can add to this t
       }
 
       &:nth-child(2) {
-        @include grid-item-column-span(2); // This item will span 2 columns  
+        @include grid-item-column-span(2); // This item will span 2 columns
       }
 
       &:nth-child(3) {
@@ -113,9 +107,9 @@ With [Breakpoint](https://github.com/at-import/breakpoint) you can add to this t
 
 ### Generated Grid Framework with classes
 
-Alternately you can generate a class-based grid framework, with or without the flexbox fallback styles. This will let you create equal-width columns, and control the grid columns, items, and responsive characteristics with css classes. Be mindful that generating a grid framework will create more css than necessary for any use case, because it has to cover all potential layout use cases. 
+Alternately you can generate a class-based grid framework, with or without the flexbox fallback styles. This will let you create equal-width columns, and control the grid columns, items, and responsive characteristics with css classes. Be mindful that generating a grid framework will create more css than necessary for any use case, because it has to cover all potential layout use cases.
 
-Classes for grid containers: 
+Classes for grid containers:
 - `.grid-container` - establishes a grid container
 - `.cols-1`, `.cols-2`, `.cols-3`, etc - sets how many columns in a grid
 - `.sm-cols-2`, `.sm-cols-3`, `.md-cols-3`, `.md-cols-4`, `.lg-cols-4`, `.xl-cols-6`, etc - sets how many columns at different responsive breakpoints

@@ -1,0 +1,22 @@
+---
+language: node_js
+node_js:
+  - "6.9.5" # N|Solid Version 2.1.2 (Boron)
+
+notifications:
+  email: false
+
+# Enable builds on all branches
+branches:
+  only:
+  - master
+  - /release\/\d{1,2}\.x/
+
+before_install:
+  - npm config set //registry.npmjs.org/:_authToken=$npm_config__auth
+
+install:
+  - npm install --always-auth=true
+
+script:
+  - npm test

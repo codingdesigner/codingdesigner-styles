@@ -1,18 +1,5 @@
-// Extensions
-@import "extensions";
-
-// CONFIG: for setup and configuration. These files should output no CSS by themselves
-// UTILITIES: general math and styles calculations
-@import 'config/utilities/index-utilities';
-// FOUNDATION: set up variables, maps, functions, and mixins for design language
-@import 'config/foundation/breakpoints/index-breakpoints';
-@import 'config/foundation/colors/index-colors';
-@import 'config/foundation/sizes/index-sizes';
-@import 'config/foundation/typography/index-typography';
-@import 'config/foundation/z-index/index-z';
-
-// LAYOUTS
-@import 'config/layouts/index-layout';
+// Tools
+@import 'codingdesigner-tools';
 
 // APP: These files output css, using the setup from CONFIG
 // BASE: App styles for base markup elements

@@ -42,6 +42,9 @@ gulp.task('build:sass', function () {
 });
 
 gulp.task('watch:sass', function () {
+  gulp.start('validate:sass');
+  gulp.start('build:sass');
+  gulp.start('docs:sass');
   gulp.watch(gulpConfig.css.watch, ['build:sass', 'validate:sass', 'docs:sass']);
 });
 

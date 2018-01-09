@@ -2,9 +2,6 @@
 /// @group Colors
 ////
 
-// note: comments in color map are used to auto-generate json (not implemented here yet)
-// @todo implement scss--json conversions
-
 /// Color Palette Maps
 /// @type Map
 $palettes: (
@@ -29,3 +26,11 @@ $palettes: (
     darkest: black
   )
 ) !default;
+
+/// site background color
+/// @type color
+$color-theme--background: get-color(grayscale, lightest) !default;
+
+/// site text color
+/// @type color
+$color-theme--text: get-color(grayscale, x-dark) !default;

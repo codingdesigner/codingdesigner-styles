@@ -1,21 +1,13 @@
 // Extensions
 @import "extensions";
 
-// CONFIG: for setup and configuration. These files should output no CSS by themselves
-
-// UTILITIES: general math and styles calculations
-@import 'config/utilities/index-utilities';
-
-// FOUNDATION: set up variables, maps, functions, and mixins for design language
-@import 'config/foundation/breakpoints/index-breakpoints';
-@import 'config/foundation/colors/index-colors';
-@import 'config/foundation/sizes/index-sizes';
-@import 'config/foundation/typography/index-typography';
-@import 'config/foundation/z-index/index-z';
-
-// LAYOUTS
-@import 'config/layouts/index-layout';
+@import 'tools/utilities/index-utilities';
+@import 'tools/breakpoints/index-breakpoints';
+@import 'tools/colors/index-colors';
+@import 'tools/sizes/index-sizes';
+@import 'tools/typography/index-typography';
+@import 'tools/z-index/index-z';
+@import 'tools/layout/index-layout';
 
 // Try: write styles as comments for experimentation
-@import 'config/try/index-try';
-
+@import 'tools/try/index-try';

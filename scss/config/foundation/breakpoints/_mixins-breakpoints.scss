@@ -1,0 +1,10 @@
+////
+/// @group Breakpoints
+////
+
+/// Wrap Breakpoint to make it simpler to use scss maps
+@mixin bp($breakpoint-map-item) {
+  @include breakpoint(get-breakpoint($breakpoint-map-item)) {
+    @content;
+  }
+}

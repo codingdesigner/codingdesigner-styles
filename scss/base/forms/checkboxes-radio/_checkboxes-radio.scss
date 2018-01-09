@@ -2,7 +2,7 @@
 /// @group Forms
 ////
 
-input {
+input:not(.hidden) {
   &[type="checkbox"] {
     @include defaults--field--checkboxes-radios();
 

@@ -43,19 +43,5 @@ $link-definitions: (
     visited: get-color(grayscale, light),
     hover: get-color(grayscale, lightest),
     focus: get-color(grayscale, light)
-  ),
-  contrast-light: (
-    initial: get-color(grayscale, lightest),
-    active: get-color(grayscale, light),
-    visited: get-color(grayscale, light),
-    hover: get-color(grayscale, lightest),
-    focus: get-color(grayscale, light)
-  ),
-  contrast-dark: (
-    initial: get-color(grayscale, darkest),
-    active: get-color(grayscale, dark),
-    visited: get-color(grayscale, dark),
-    hover: get-color(grayscale, darkest),
-    focus: get-color(grayscale, dark)
   )
 ) !default;

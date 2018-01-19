@@ -1,8 +1,3 @@
-// Tools
-@import 'codingdesigner-tools';
-@import "codingdesigner-variables";
-
-// APP: These files output css, using the setup from CONFIG
 // BASE: App styles for base markup elements
 @import 'base/html-body/base';
 @import 'base/layout/classes-layout';
@@ -10,22 +5,15 @@
 @import 'base/forms/scss-utils/focus';
 @import 'base/forms/buttons/index-buttons';
 @import 'base/forms/checkboxes-radio/index-checkboxes-radio';
-@import 'base/forms/fieldset/fieldset';
 @import 'base/forms/input/input';
-@import 'base/forms/label/label';
 @import 'base/forms/select-menu/select';
 @import 'base/forms/textarea/textarea';
 @import 'base/forms/validate-require/validate-require';
+@import 'base/forms/table/table-index';
 @import 'base/blockquote/blockquote';
 @import 'base/figure/figure';
 @import 'base/headings/headings';
-@import 'base/hr/hr';
-@import 'base/images/mixins-images';
-@import 'base/images/images';
-@import 'base/inline-elements/inline-elements';
+@import 'base/images/images-index';
 @import 'base/link/link';
-@import 'base/lists/lists';
+@import 'base/lists/lists-index';
 @import 'base/p/p';
-@import 'base/preformatted-text/preformatted-text';
-@import 'base/table/mixins';
-@import 'base/table/table';

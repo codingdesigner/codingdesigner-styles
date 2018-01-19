@@ -195,7 +195,7 @@
 /// * change to suit your app
 @mixin link-standard() {
   @include set-link-defaults();
-  @include set-link-colors(contrast-dark);
+  @include set-link-colors(normal);
   @include set-link-transitions();
 }
 

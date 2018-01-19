@@ -2,12 +2,14 @@
 /// @group Forms
 ////
 
-.button {
-  @include button();
-}
+@if $generate-default-form-buttons {
+  .button {
+    @include button();
+  }
 
-input[type="submit"],
-button {
-  @include button();
-  border: 0;
+  input[type="submit"],
+  button {
+    @include button();
+    border: 0;
+  }
 }

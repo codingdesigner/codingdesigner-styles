@@ -1,0 +1,211 @@
+////
+/// @group Typography
+////
+
+
+
+/// Set link defaults
+/// @param {boolean} $underlines [true] - use css underlines
+@mixin set-link-defaults($underlines: true) {
+  @if ($underlines == false) {
+    text-decoration: none;
+  }
+
+  &:focus, &:hover {
+    outline: none;
+  }
+  cursor: pointer;
+}
+
+/// Set Link Colors
+/// @param {map item} $link-bundle [normal] - a map item from `$color-theme--link-map`
+/// Map item will include colors for `initial`, `active`, `visited`, `hover`, `focus`
+@mixin set-link-colors($link-bundle: normal) {
+  $link-normal: get-link-parameter($link-bundle);
+  $link-hover: get-link-parameter($link-bundle, hover);
+  $link-active: get-link-parameter($link-bundle, active);
+  $link-visited: get-link-parameter($link-bundle, visited);
+  $link-focus: get-link-parameter($link-bundle, focus);
+
+  color: $link-normal;
+
+  &:link {
+    color: $link-normal;
+  }
+
+  &:visited {
+    color: $link-visited;
+  }
+
+  &:hover {
+    color: $link-hover;
+  }
+
+  &:active {
+    color: $link-active;
+  }
+
+  &:focus {
+    color: $link-focus;
+  }
+}
+
+/// Set standard link transitions
+@mixin set-link-transitions() {
+  transition-property: color, background, text-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+
+/// Set border underline links
+/// @param {map item} $link-bundle [normal] - a map item from `$color-theme--link-map`
+/// Map item will include colors for `initial`, `active`, `visited`, `hover`, `focus`, `size`
+@mixin set-border-links($link-bundle: border) {
+  $link-border-normal: get-link-parameter($link-bundle);
+  $link-border-hover: get-link-parameter($link-bundle, hover);
+  $link-border-active: get-link-parameter($link-bundle, active);
+  $link-border-visited: get-link-parameter($link-bundle, visited);
+  $link-border-focus: get-link-parameter($link-bundle, focus);
+  $link-border-size: get-link-parameter($link-bundle, size);
+
+  border-bottom: $link-border-size solid $link-border-normal;
+
+  &:visited {
+    border-bottom-color: $link-border-visited;
+  }
+
+  &:focus {
+    border-bottom-color: $link-border-focus;
+  }
+
+  &:hover {
+    border-bottom-color: $link-border-hover;
+  }
+
+  &:active {
+    border-bottom-color: $link-border-active;
+  }
+}
+
+/// Unset border underline links
+@mixin unset-border-links() {
+  border-bottom: none;
+  text-decoration: none;
+
+  &:visited {
+    border-bottom: none;
+  }
+
+  &:focus {
+    border-bottom: none;
+  }
+
+  &:hover {
+    border-bottom: none;
+  }
+
+  &:active {
+    border-bottom: none;
+  }
+}
+
+/// Calculate background gradient image for faux underline links
+/// @param {color} $background-color
+/// @param {color} $line-color
+/// @param {number} $size
+/// @param {number} $offset [0]
+@mixin faux-underline-link-gradient($background-color, $line-color, $size, $offset: 0) {
+  background-image: linear-gradient(to top, $background-color $offset, $line-color ($size + $offset), $background-color ($size + $offset));
+}
+
+/// Set faux underline links
+/// * Set a background as the underline on a link, with a text shadow on the text.
+/// * Allows the descenders to "break" the underline
+/// @param {map item} $link-bundle [normal] - a map item from `$color-theme--link-map`
+/// Map item will include colors for `initial`, `active`, `visited`, `hover`, `focus`, `size`, `background-color`
+@mixin set-faux-underline-links($link-bundle: faux-underline) {
+  $link-faux-normal: get-link-parameter($link-bundle);
+  $link-faux-hover: get-link-parameter($link-bundle, hover);
+  $link-faux-active: get-link-parameter($link-bundle, active);
+  $link-faux-visited: get-link-parameter($link-bundle, visited);
+  $link-faux-focus: get-link-parameter($link-bundle, focus);
+  $link-faux-size: get-link-parameter($link-bundle, size);
+  $link-faux-background-color: get-link-parameter($link-bundle, background-color);
+  $offset: 0;
+
+  $bkg-gradient: transparent;
+  @include faux-underline-link-gradient($bkg-gradient, $link-faux-normal, $link-faux-size, $offset);
+
+  &:visited {
+    @include faux-underline-link-gradient($bkg-gradient, $link-faux-visited, $link-faux-size, $offset);
+  }
+
+  &:focus {
+    @include faux-underline-link-gradient($bkg-gradient, $link-faux-focus, $link-faux-size, $offset);
+  }
+
+  &:hover {
+    @include faux-underline-link-gradient($bkg-gradient, $link-faux-hover, $link-faux-size, $offset);
+  }
+
+  &:active {
+    @include faux-underline-link-gradient($bkg-gradient, $link-faux-active, $link-faux-size, $offset);
+  }
+  background-position: 100% 100%;
+  background-size: 100% 100%;
+  text-decoration: none;
+  text-shadow: $link-faux-background-color -1px 1px 0, $link-faux-background-color 0 1px 0, $link-faux-background-color 1px 1px 0;
+}
+
+/// unset the faux underline underline
+@mixin unset-faux-underline-links() {
+  background-image: none;
+  text-decoration: none;
+  text-shadow: none;
+
+  &:visited {
+    background-image: none;
+    text-shadow: none;
+  }
+
+  &:focus {
+    background-image: none;
+    text-shadow: none;
+  }
+
+  &:hover {
+    background-image: none;
+    text-shadow: none;
+  }
+
+  &:active {
+    background-image: none;
+    text-shadow: none;
+  }
+}
+
+/// Clean link with no underlines
+@mixin link-clean() {
+  @include set-link-defaults(false);
+  @include set-link-colors();
+  @include unset-faux-underline-links();
+}
+
+/// Standard link
+/// * change to suit your app
+@mixin link-standard() {
+  @include set-link-defaults();
+  @include set-link-colors(normal);
+  @include set-link-transitions();
+}
+
+/// Reversed link (on a dark background)
+@mixin link-reversed() {
+  @include set-link-colors(reversed);
+}
+
+/// Set text colors for button links on colored backgrounds
+/// @param {color} $color
+@mixin color-button-link($color) {
+  @include set-link-colors(color-contrast-color-map-switch($color));
+}

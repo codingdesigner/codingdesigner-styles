@@ -1,0 +1,36 @@
+////
+/// @group Colors
+////
+
+/// Color Palette Maps
+/// @type Map
+$palettes: (
+  primary: (
+    base: blue,
+    light: lightblue,
+    faded: #3B5B86
+  ),
+  secondary: (
+    base: orange
+  ),
+  accent: (
+    base: red
+  ),
+  grayscale: (
+    lightest: white,
+    warm: hsl(48, 20%, 95%),
+    light: #e5e5e5,
+    base: grey,
+    dark: darkgray,
+    x-dark: hsl(0, 0%, 8%),
+    darkest: black
+  )
+) !default;
+
+/// site background color
+/// @type color
+$color-theme--background: get-color(grayscale, lightest) !default;
+
+/// site text color
+/// @type color
+$color-theme--text: get-color(grayscale, x-dark) !default;

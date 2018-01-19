@@ -2,10 +2,12 @@
 /// @group Forms
 ////
 
-select {
-  @include defaults--field--select();
+@if $generate-default-form-select {
+  select {
+    @include defaults--field--select();
 
-  &:focus {
-    @include focus();
+    &:focus {
+      @include focus();
+    }
   }
 }

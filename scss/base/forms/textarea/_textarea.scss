@@ -2,12 +2,14 @@
 /// @group Forms
 ////
 
-textarea {
-  @include defaults--field();
-  @include field-limit-width();
-  display: block;
+@if $generate-default-form-text-area {
+  textarea {
+    @include defaults--field();
+    @include field-limit-width();
+    display: block;
 
-  &:focus {
-    @include focus();
+    &:focus {
+      @include focus();
+    }
   }
 }

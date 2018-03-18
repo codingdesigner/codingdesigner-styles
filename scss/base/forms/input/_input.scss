@@ -80,8 +80,6 @@
       box-shadow: 0 0 4px 4px rgba(green, 0.5);
     }
 
-    &:focus {
-      @include focus();
-    }
+    &:focus {}
   }
 }

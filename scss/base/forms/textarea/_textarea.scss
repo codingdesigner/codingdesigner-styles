@@ -8,8 +8,6 @@
     @include field-limit-width();
     display: block;
 
-    &:focus {
-      @include focus();
-    }
+    &:focus {}
   }
 }

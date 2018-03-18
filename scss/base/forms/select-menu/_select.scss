@@ -6,8 +6,6 @@
   select {
     @include defaults--field--select();
 
-    &:focus {
-      @include focus();
-    }
+    &:focus {}
   }
 }
